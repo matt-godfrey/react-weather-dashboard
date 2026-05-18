@@ -5,4 +5,5 @@ export type Coords = {
 
 export type MapClickProps = {
   onCoordsChange: (coords: Coords) => void;
+  coords: Coords;
 };
