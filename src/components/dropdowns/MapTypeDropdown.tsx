@@ -20,8 +20,8 @@ export default function MapTypeDropdown({ mapType, setMapType }: Props) {
       </SelectTrigger>
       <SelectContent className="z-1001">
         {types.map((type) => (
-          <SelectItem key={type} value={type}>
-            {type}
+          <SelectItem key={type} value={type} className="capitalize">
+            {type.split("_")[0]}
           </SelectItem>
         ))}
       </SelectContent>

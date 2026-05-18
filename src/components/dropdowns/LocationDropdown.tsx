@@ -18,10 +18,13 @@ export default function LocationDropdown({
 }: LocationDropdownProps) {
   return (
     <Select value={location} onValueChange={(value) => setLocation(value)}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-45">
         <SelectValue placeholder="City" />
       </SelectTrigger>
       <SelectContent className="z-1001">
+        {location === "custom" && (
+          <SelectItem value="custom">Custom</SelectItem>
+        )}
         {cities.map((city) => (
           <SelectItem key={city} value={city}>
             {city}

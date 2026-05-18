@@ -3,6 +3,7 @@ import { MapContainer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Coords, MapClickProps } from "../types";
 import { useEffect } from "react";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 interface MapProps {
@@ -22,14 +23,17 @@ export default function Map({ coords, onCoordsChange, mapType }: MapProps) {
       center={[coords.lat, coords.lon]}
       zoom={5}
       scrollWheelZoom={false}
-      style={{ width: "1000px", height: "500px" }}
+      style={{ width: "1500px", height: "500px" }}
     >
       <MapClick onCoordsChange={onCoordsChange} coords={coords} />
-      <TileLayer
+      {/* Default tile layer from OpenStreetMap */}
+      {/*<TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      />*/}
+      <MapTileLayer />
       <TileLayer
+        opacity={0.7}
         url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
       />
       <Marker position={[coords.lat, coords.lon]}>
@@ -44,11 +48,11 @@ export default function Map({ coords, onCoordsChange, mapType }: MapProps) {
 function MapClick(props: MapClickProps) {
   const map = useMap();
   const coords = props.coords;
-  // map.panTo([coords.lat, coords.lon]);
+  map.panTo([coords.lat, coords.lon]);
   // uncomment .panTo above if not using useEffect
-  useEffect(() => {
-    map.panTo([coords.lat, coords.lon]);
-  }, [map, coords.lat, coords.lon]);
+  // useEffect(() => {
+  //   map.panTo([coords.lat, coords.lon]);
+  // }, [map, coords.lat, coords.lon]);
 
   map.on("click", (e) => {
     // console.log(e);
@@ -59,6 +63,24 @@ function MapClick(props: MapClickProps) {
       lat: lat,
       lon: lng,
     });
+  });
+  return null;
+}
+
+function MapTileLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const tileLayer = new MaptilerLayer({
+      // style: "basic-dark",
+      // style: "hybrid",
+      style: "basic",
+      apiKey: "8FrlLhUos0cIAsw9uDbg",
+    });
+    tileLayer.addTo(map);
+    return () => {
+      map.removeLayer(tileLayer);
+    };
   });
   return null;
 }
