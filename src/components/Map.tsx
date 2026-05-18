@@ -3,14 +3,16 @@ import { MapContainer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { Coords, MapClickProps } from "../types";
 import { useEffect } from "react";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 interface MapProps {
   coords: Coords;
   onCoordsChange: (coords: Coords) => void;
   // onCoordsChange: (lat: number, lon: number) => void;
+  mapType: string;
 }
 
-export default function Map({ coords, onCoordsChange }: MapProps) {
+export default function Map({ coords, onCoordsChange, mapType }: MapProps) {
   return (
     // { lat: 45.42, lon: -75.69 }
     <MapContainer
@@ -26,6 +28,9 @@ export default function Map({ coords, onCoordsChange }: MapProps) {
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <TileLayer
+        url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}
       />
       <Marker position={[coords.lat, coords.lon]}>
         <Popup>
