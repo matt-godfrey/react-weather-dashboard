@@ -6,12 +6,15 @@ import type { Coords, MapClickProps } from "../types";
 interface MapProps {
   coords: Coords;
   onCoordsChange: (coords: Coords) => void;
+  // onCoordsChange: (lat: number, lon: number) => void;
 }
 
 export default function Map({ coords, onCoordsChange }: MapProps) {
   return (
     // { lat: 45.42, lon: -75.69 }
     <MapContainer
+      // providing a key here forces react to re-render component when we select a new city from dropdown
+      key={`${coords.lat},${coords.lon}`}
       center={[coords.lat, coords.lon]}
       zoom={5}
       scrollWheelZoom={false}
@@ -38,9 +41,10 @@ function MapClick(props: MapClickProps) {
     // console.log(e);
     map.panTo([e.latlng.lat, e.latlng.lng]);
 
+    const { lat, lng } = e.latlng;
     props.onCoordsChange({
-      lat: e.latlng.lat,
-      lon: e.latlng.lng,
+      lat: lat,
+      lon: lng,
     });
   });
   return null;
