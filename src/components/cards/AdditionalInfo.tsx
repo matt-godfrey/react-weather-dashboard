@@ -1,5 +1,4 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getWeather } from "../../api";
 import Card from "./Card";
 import Sunrise from "/src/assets/sunrise.svg?react";
 import Sunset from "/src/assets/sunset.svg?react";
@@ -7,18 +6,18 @@ import Cloud from "/src/assets/cloud.svg?react";
 import Uv from "/src/assets/uv.svg?react";
 import Pressure from "/src/assets/pressure.svg?react";
 import Wind from "/src/assets/wind.svg?react";
+import UpArrow from "/src/assets/uparrow.svg?react";
+import { weatherQuery } from "../../api/weatherQueries";
+import type { Coords } from "../../types";
 
 // https://www.npmjs.com/package/vite-plugin-svgr
 
-interface AdditionalInfoProps {}
+interface AdditionalInfoProps {
+  coords: Coords;
+}
 
-export default function AdditionalInfo({}: AdditionalInfoProps) {
-  const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: 45.42, lon: -75.69 }),
-    staleTime: 1000 * 60 * 10,
-    refetchOnWindowFocus: false,
-  });
+export default function AdditionalInfo({ coords }: AdditionalInfoProps) {
+  const { data } = useSuspenseQuery(weatherQuery(coords));
   return (
     <Card
       title="Additional Weather Info"
@@ -49,6 +48,14 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
       minute: "2-digit",
       hour12: true,
     });
+  }
+  if (value === "wind_deg") {
+    return (
+      <UpArrow
+        style={{ transform: `rotate(${number}deg)` }}
+        className="size-8 invert"
+      />
+    );
   }
   return number;
 }

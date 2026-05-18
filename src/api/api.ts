@@ -1,4 +1,4 @@
-import { OneCallSchema } from "./schemas/weatherSchema";
+import { OneCallSchema } from "../schemas/weatherSchema";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 

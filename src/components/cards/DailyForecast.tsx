@@ -1,19 +1,17 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { getWeather } from "../../api";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { weatherQuery } from "../../api/weatherQueries";
 import Card from "./Card";
 import WeatherIcon from "../WeatherIcon";
+import type { Coords } from "../../types";
 
-type Props = {};
+type Props = {
+  coords: Coords;
+};
 
-export default function DailyForecast({}: Props) {
+export default function DailyForecast({ coords }: Props) {
   // won't double query since we're using the same query key in App.tsx
   // useQuery
-  const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: 45.42, lon: -75.69 }),
-    staleTime: 1000 * 60 * 10,
-    refetchOnWindowFocus: false,
-  });
+  const { data } = useSuspenseQuery(weatherQuery(coords));
 
   return (
     <Card title="Daily Forecast" childrenClassName="flex flex-col gap-4">

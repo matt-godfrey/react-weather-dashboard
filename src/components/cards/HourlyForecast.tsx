@@ -1,19 +1,17 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getWeather } from "../../api";
 import Card from "./Card";
 import WeatherIcon from "../WeatherIcon";
+import { weatherQuery } from "../../api/weatherQueries";
+import type { Coords } from "../../types";
 
-interface HourlyForecastProps {}
+interface HourlyForecastProps {
+  coords: Coords;
+}
 
-export default function HourlyForecast({}: HourlyForecastProps) {
+export default function HourlyForecast({ coords }: HourlyForecastProps) {
   // won't double query since we're using the same query key in App.tsx
   // useQuery
-  const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => getWeather({ lat: 45.42, lon: -75.69 }),
-    staleTime: 1000 * 60 * 10,
-    refetchOnWindowFocus: false,
-  });
+  const { data } = useSuspenseQuery(weatherQuery(coords));
 
   return (
     <Card
