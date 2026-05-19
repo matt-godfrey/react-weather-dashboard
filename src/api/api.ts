@@ -22,3 +22,5 @@ export async function getGeocode(location: string) {
   const data = await res.json();
   return GeocodeSchema.parse(data);
 }
+
+// TODO: add a reverse geocode lookup
