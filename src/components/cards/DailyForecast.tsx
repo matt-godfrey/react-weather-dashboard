@@ -14,7 +14,10 @@ export default function DailyForecast({ coords }: Props) {
   const { data } = useSuspenseQuery(weatherQuery(coords));
 
   return (
-    <Card title="Daily Forecast" childrenClassName="flex flex-col gap-4">
+    <Card
+      title="Daily Forecast"
+      childrenClassName="flex flex-col gap-4 2xl:justify-between"
+    >
       {/*
         flex-col: children go vertically
         gap-4:

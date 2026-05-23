@@ -12,8 +12,9 @@ export default function CurrentWeather({ coords }: CurrentWeatherProps) {
   const { data } = useSuspenseQuery(weatherQuery(coords));
   return (
     <Card
-      title="CurrentWeather"
-      childrenClassName="flex flex-col items-center gap-6"
+      title="Current Weather"
+      className="md:pb-11"
+      childrenClassName="flex flex-col items-center gap-6 2xl:justify-between"
     >
       <div className="flex flex-col gap-2 items-center">
         <h2 className="text-6xl font-semibold text-center">

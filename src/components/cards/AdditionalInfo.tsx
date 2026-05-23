@@ -21,7 +21,8 @@ export default function AdditionalInfo({ coords }: AdditionalInfoProps) {
   return (
     <Card
       title="Additional Weather Info"
-      childrenClassName="flex flex-col gap-8"
+      // childrenClassName="flex flex-col gap-8"
+      childrenClassName="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       {rows.map((row) => (
         <div className="flex justify-between" key={row.value}>

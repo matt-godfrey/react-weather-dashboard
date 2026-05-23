@@ -47,6 +47,7 @@ const cities = [
   "Dubai",
   "Los Angeles",
   "Toronto",
+  "Ottawa",
   "Mexico City",
   "São Paulo",
   "Buenos Aires",

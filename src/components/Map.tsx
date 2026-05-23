@@ -23,7 +23,7 @@ export default function Map({ coords, onCoordsChange, mapType }: MapProps) {
       center={[coords.lat, coords.lon]}
       zoom={5}
       scrollWheelZoom={false}
-      style={{ width: "1500px", height: "500px" }}
+      style={{ width: "100%", height: "100%" }}
     >
       <MapClick onCoordsChange={onCoordsChange} coords={coords} />
       {/* Default tile layer from OpenStreetMap */}
