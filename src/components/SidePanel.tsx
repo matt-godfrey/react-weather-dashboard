@@ -12,14 +12,27 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import Information from "/src/assets/information.svg?react";
+import ChevronLeft from "/src/assets/ChevronLeft.svg?react";
 
 interface Props {
   coords: Coords;
+  isSidePanelOpen: boolean;
+  setIsSidePanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SidePanel(props: Props) {
+  const { isSidePanelOpen, setIsSidePanelOpen } = props;
+
   return (
-    <div className="fixed top-0 right-0 h-screen w-80 shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll">
+    <div
+      className={clsx(
+        "fixed top-0 right-0 h-screen w-80 shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll transition-transform duration-300",
+        isSidePanelOpen ? "translate-x-0" : "translate-x-full",
+      )}
+    >
+      <button onClick={() => setIsSidePanelOpen(false)}>
+        <ChevronLeft className="size-8 invert" />
+      </button>
       <Suspense>
         <AirPollution {...props} />
       </Suspense>
@@ -102,10 +115,8 @@ function AirPollution({ coords }: Props) {
                     </TooltipTrigger>
                     <TooltipContent className="z-2000">
                       <p className="max-w-xs">
-                        {" "}
-                        Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where
-                        1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very
-                        Poor.
+                        Concentration of{" "}
+                        {pollutantNameMapping[key.toUpperCase() as Pollutant]}
                       </p>
                     </TooltipContent>
                   </Tooltip>
