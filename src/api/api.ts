@@ -1,3 +1,4 @@
+import { AirPollutionSchema } from "@/schemas/airPollutionSchema";
 import { GeocodeSchema } from "../schemas/geocodeSchema";
 import { OneCallSchema } from "../schemas/weatherSchema";
 
@@ -21,6 +22,21 @@ export async function getGeocode(location: string) {
 
   const data = await res.json();
   return GeocodeSchema.parse(data);
+}
+
+export async function getAirPollution({
+  lat,
+  lon,
+}: {
+  lat: number;
+  lon: number;
+}) {
+  const res = await fetch(
+    `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`,
+  );
+
+  const data = await res.json();
+  return AirPollutionSchema.parse(data);
 }
 
 // TODO: add a reverse geocode lookup
