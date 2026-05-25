@@ -28,7 +28,7 @@ export default function AdditionalInfo({ coords }: AdditionalInfoProps) {
         <div className="flex justify-between" key={row.value}>
           <div className="flex gap-4">
             <span className="text-gray-500">{row.label}</span>
-            <row.Icon className="size-8 invert" />
+            <row.Icon className="size-8" />
           </div>
           <span>
             <FormatComponent
@@ -54,7 +54,7 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
     return (
       <UpArrow
         style={{ transform: `rotate(${number}deg)` }}
-        className="size-8 invert"
+        className="size-8"
       />
     );
   }

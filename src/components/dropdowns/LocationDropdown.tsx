@@ -18,7 +18,7 @@ export default function LocationDropdown({
 }: LocationDropdownProps) {
   return (
     <Select value={location} onValueChange={(value) => setLocation(value)}>
-      <SelectTrigger className="w-45">
+      <SelectTrigger className="w-full xs:w-45">
         <SelectValue placeholder="City" />
       </SelectTrigger>
       <SelectContent className="z-1001">

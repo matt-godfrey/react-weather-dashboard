@@ -12,9 +12,12 @@ export default function HourlySkeleton({}: Props) {
       // flex-row: children go horizontally; this is default so not necessary to write
     >
       {Array.from({ length: 48 }).map((_, index) => (
-        <div key={index} className="flex flex-col gap-2 items-center p-2">
+        <div
+          key={index}
+          className="flex flex-col 2xl:justify-between gap-2 items-center p-2"
+        >
           <Skeleton className="w-15 h-6"></Skeleton>
-          <Skeleton className="size-8"></Skeleton>
+          <Skeleton className="size-8 rounded-full"></Skeleton>
           <Skeleton className="w-8 h-6"></Skeleton>
         </div>
       ))}

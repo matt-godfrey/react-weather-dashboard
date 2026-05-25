@@ -21,7 +21,10 @@ export default function HourlyForecast({ coords }: HourlyForecastProps) {
       // flex-row: children go horizontally; this is default so not necessary to write
     >
       {data.hourly.map((hour) => (
-        <div key={hour.dt} className="flex flex-col gap-2 items-center p-2">
+        <div
+          key={hour.dt}
+          className="flex flex-col 2xl:justify-between gap-2 items-center p-2"
+        >
           <p className="whitespace-nowrap">
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, {
               hour: "numeric",

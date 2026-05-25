@@ -7,7 +7,7 @@ export default function AdditionalInfoSkeleton({}: Props) {
   return (
     <Card
       title="Additional Weather Info"
-      childrenClassName="flex flex-col gap-8"
+      childrenClassName="grid grid-cols-1 md:grid-cols-2 gap-6"
     >
       {Array.from({ length: 6 }).map((_, index) => (
         <div className="flex justify-between" key={index}>

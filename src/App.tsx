@@ -17,6 +17,8 @@ import DailySkeleton from "./components/skeletons/DailySkeleton";
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton";
 import SidePanel from "./components/SidePanel";
 import Hamburger from "/src/assets/hamburger.svg?react";
+import MobileHeader from "./components/MobileHeader";
+import LightDarkToggle from "./components/LightDarkToggle";
 
 function App() {
   // { lat: 45.42, lon: -75.69 } => Ottawa
@@ -43,10 +45,11 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-8 p-8 w-full lg:w-[calc(100vw-var(--sidebar-width))] 2xl:h-screen">
+      <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
+      <div className="flex flex-col gap-8 pt-4 p-8 w-full xs:pt-8 lg:w-[calc(100vw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-280">
         <div className="flex flex-col gap-4 xs:flex-row xs:gap-8">
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-            <h1>City:</h1>
+            <h1 className="text-2xl font-semibold whitespace-nowrap">City:</h1>
             <LocationDropdown location={location} setLocation={setLocation} />
           </div>
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
@@ -55,9 +58,17 @@ function App() {
             </h1>
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
-          <button onClick={() => setIsSidePanelOpen(true)}>
-            <Hamburger className="size-6 invert ml-auto lg:hidden" />
-          </button>
+          <div className="ml-auto flex gap-4 items-center">
+            <div className="hidden xs:block">
+              <LightDarkToggle />
+            </div>
+            <button
+              onClick={() => setIsSidePanelOpen(true)}
+              className="hidden xs:block"
+            >
+              <Hamburger className="size-6 lg:hidden" />
+            </button>
+          </div>
         </div>
         {/*// why does min-h-0 with flex-1 fix spacing issues?*/}
         <div className="grid grid-cols-1 2xl:flex-1 2xl:min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
